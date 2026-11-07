@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1016">
+  <meta name="description" content="صمّم أي مساحة مع نواة. ارفع صورة شقتك أو منزلك أو مكتبك وجرّب تصورات التصميم والمواد.">
+  <title>نواة | استوديو التصميم الداخلي</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans Arabic"', 'sans-serif']
+          },
+          colors: {
+            ink: '#111714',
+            leaf: '#9dbb91',
+            sand: '#f5f4ef'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --page-bg: #0a1016;
+      --panel: rgba(18, 28, 37, 0.92);
+      --panel-strong: rgba(20, 29, 39, 0.96);
+      --line: rgba(255,255,255,0.09);
+      --soft: rgba(255,255,255,0.7);
+      --muted: rgba(255,255,255,0.52);
+      --blue: #58b6ff;
+      --blue-strong: #2d95ff;
+      --room-light: rgba(255, 248, 213, 0.98);
+      --room-floor: #c7d3d4;
+      --room-wall: #dfeae9;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "IBM Plex Sans Arabic", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(62, 84, 101, 0.24), transparent 30%),
+        linear-gradient(180deg, #0b1015 0%, #0a1016 100%);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(to left, #4d9dff 0%, #4d9dff var(--progress, 50%), rgba(255,255,255,0.1) var(--progress, 50%), rgba(255,255,255,0.08) 100%);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #5db2ff;
+      border: 4px solid #eaf8ff;
+      box-shadow: 0 0 0 6px rgba(93, 178, 255, 0.16);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #5db2ff;
+      border: 4px solid #eaf8ff;
+      box-shadow: 0 0 0 6px rgba(93, 178, 255, 0.16);
+      cursor: pointer;
+    }
+
+    .field-input,
+    .field-select {
+      width: 100%;
+      height: 52px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      color: rgba(255,255,255,0.92);
+      padding: 0 16px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .field-select {
+      appearance: none;
+      padding-left: 42px;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-input:active,
+    .field-select:active {
+      border-color: rgba(88,182,255,0.7);
+      box-shadow: 0 0 0 3px rgba(88,182,255,0.15);
+    }
+
+    .field-box {
+      display: block;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .slider-shell {
+      padding-top: 4px;
+    }
+
+    .range-inline {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .range-inline input[type="range"] {
+      width: 100%;
+    }
+
+    .range-value {
+      min-width: 3ch;
+      text-align: center;
+      color: rgba(255,255,255,0.86);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .energy-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .short-input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .currency {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .cost-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-right: 4px;
+    }
+
+    .cost-label {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.8;
+    }
+
+    .cost-value {
+      color: rgba(255,255,255,0.97);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+
+    .cost-unit {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.72);
+      margin-inline-start: 6px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 58px;
+      border-radius: 14px;
+      border: 1px solid rgba(88,182,255,0.3);
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      cursor: pointer;
+    }
+
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 20;
+      min-width: 220px;
+      max-width: min(90vw, 360px);
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(18, 35, 46, 0.96);
+      color: #edf8ff;
+      border: 1px solid rgba(140, 205, 255, 0.3);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .primary-btn {
+      background: linear-gradient(180deg, #4b96ff 0%, #2d81ea 100%);
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(45,129,234,0.28);
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.01);
+      color: #cfe6ff;
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      font-size: 1.2rem;
+    }
+
+    .room-visual-wrap {
+      position: relative;
+      min-height: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .relative { position: relative; }
+    .select-caret {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.62);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      color: #d7bd91;
+      background: linear-gradient(145deg, #25313a, #111a22);
+      font-size: 1.65rem;
+      font-weight: 700;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 10px 0;
+      color: rgba(255,255,255,0.62);
+      font-size: 0.9rem;
+      transition: color .2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+    }
+
+    .nav-link.active::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      border-radius: 99px;
+      background: #d7bd91;
+      content: "";
+    }
+
+    .project-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 30px 0 24px;
+    }
+
+    .eyebrow {
+      color: #d7bd91;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+    }
+
+    .project-title {
+      margin-top: 7px;
+      font-size: clamp(1.7rem, 3vw, 2.45rem);
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: rgba(255,255,255,0.66);
+      font-size: 0.82rem;
+    }
+
+    .meta-chip {
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .room-tabs,
+    .finish-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .room-tab,
+    .finish-option {
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.67);
+      background: rgba(255,255,255,0.025);
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+
+    .room-tab {
+      padding: 8px 13px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+    }
+
+    .room-tab.active,
+    .room-tab:hover {
+      border-color: rgba(215,189,145,0.42);
+      color: #f4e8d2;
+      background: rgba(215,189,145,0.1);
+    }
+
+    .room-photo-frame {
+      position: relative;
+      min-height: 355px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(215,189,145,0.24), transparent 50%),
+        linear-gradient(135deg, #303b40, #171f23);
+      isolation: isolate;
+    }
+
+    .room-photo {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(var(--photo-brightness, 1)) saturate(var(--photo-saturation, .92));
+      transition: filter .35s ease, transform .6s ease;
+    }
+
+    .room-photo-frame:hover .room-photo {
+      transform: scale(1.025);
+    }
+
+    .room-photo-frame::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(7,12,16,.05) 35%, rgba(7,12,16,.7) 100%),
+        var(--finish-tint, linear-gradient(120deg, rgba(224,195,147,.06), transparent 60%)),
+        linear-gradient(0deg, rgba(255,224,169,var(--light-wash, .08)), transparent 72%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .room-photo-frame[data-finish="natural"] {
+      --finish-tint: linear-gradient(120deg, rgba(222,198,154,.2), transparent 72%);
+      --photo-saturation: .96;
+    }
+
+    .room-photo-frame[data-finish="warm"] {
+      --finish-tint: linear-gradient(120deg, rgba(210,144,82,.24), transparent 72%);
+      --photo-saturation: 1.08;
+    }
+
+    .room-photo-frame[data-finish="cool"] {
+      --finish-tint: linear-gradient(120deg, rgba(142,181,206,.23), transparent 72%);
+      --photo-saturation: .84;
+    }
+
+    .room-photo-frame.image-unavailable .room-photo {
+      display: none;
+    }
+
+    .room-photo-frame.image-unavailable::before {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: rgba(255,255,255,0.72);
+      content: "تعذر تحميل الصورة المرجعية — ارفع صورة من جهازك للمعاينة";
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .photo-upload-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 12px 0 18px;
+    }
+
+    .upload-room-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid rgba(215,189,145,0.34);
+      border-radius: 11px;
+      color: #ead9bc;
+      background: rgba(215,189,145,0.08);
+      font: inherit;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease;
+    }
+
+    .upload-room-btn:hover {
+      border-color: rgba(215,189,145,0.6);
+      background: rgba(215,189,145,0.15);
+    }
+
+    .upload-room-btn:disabled {
+      cursor: wait;
+      opacity: .65;
+    }
+
+    .upload-hint,
+    .uploaded-image-name {
+      color: rgba(255,255,255,0.48);
+      font-size: 0.73rem;
+    }
+
+    .uploaded-image-name {
+      max-width: 48%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .image-adjustments {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      margin-top: 15px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .adjustment-control {
+      min-width: 0;
+    }
+
+    .adjustment-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 9px;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.72rem;
+    }
+
+    .adjustment-value {
+      color: rgba(255,255,255,0.86);
+      direction: ltr;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .local-edit-note {
+      margin-top: 12px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.68rem;
+      line-height: 1.8;
+    }
+
+    .ai-design-controls {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .ai-prompt {
+      min-height: 88px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+
+    .ai-actions,
+    .ai-result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ai-generate-btn,
+    .ai-view-btn,
+    .ai-download-btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 11px;
+      font: inherit;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .ai-generate-btn {
+      border: 1px solid rgba(215,189,145,0.4);
+      color: #fff;
+      background: linear-gradient(135deg, #9e7547, #785532);
+    }
+
+    .ai-generate-btn:disabled {
+      cursor: wait;
+      opacity: .65;
+    }
+
+    .ai-view-btn,
+    .ai-download-btn {
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .ai-status {
+      min-height: 1.4em;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.76rem;
+      line-height: 1.7;
+    }
+
+    .ai-status[data-state="error"] {
+      color: #ffaaa5;
+    }
+
+    .ai-status[data-state="success"] {
+      color: #b7dcb6;
+    }
+
+    .photo-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(13,20,25,0.52);
+      font-size: 0.72rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .photo-caption {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      left: 20px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .photo-caption h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .photo-caption p {
+      margin-top: 4px;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.8rem;
+    }
+
+    .lux-pill {
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      color: #fff;
+      background: rgba(13,20,25,0.45);
+      font-size: 0.78rem;
+      white-space: nowrap;
+      backdrop-filter: blur(12px);
+    }
+
+    .preview-tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 13px 0 21px;
+    }
+
+    .finish-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+    }
+
+    .finish-option.active {
+      border-color: rgba(215,189,145,0.52);
+      color: #fff;
+      background: rgba(215,189,145,0.11);
+    }
+
+    .finish-swatch {
+      width: 13px;
+      height: 13px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+    }
+
+    .finish-swatch.natural { background: #c8b596; }
+    .finish-swatch.warm { background: #b98151; }
+    .finish-swatch.cool { background: #829ba8; }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 13px;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .summary-item span {
+      display: block;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .calculator-subtitle {
+      margin-top: 4px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+    }
+
+    .cost-total-card {
+      padding: 16px;
+      border: 1px solid rgba(215,189,145,0.18);
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(215,189,145,0.09), rgba(255,255,255,0.025));
+    }
+
+    .cost-total-card .cost-value {
+      color: #e8d6b7;
+    }
+
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #c6d6c6;
+      font-size: 0.78rem;
+    }
+
+    .project-status::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #8dbb8b;
+      content: "";
+    }
+
+    @media (max-width: 767px) {
+      .top-nav { gap: 16px; }
+      .project-heading { align-items: start; flex-direction: column; }
+      .room-photo-frame { min-height: 290px; }
+      .preview-tools { align-items: start; flex-direction: column; }
+      .image-adjustments { grid-template-columns: 1fr; }
+      .photo-upload-row { align-items: start; flex-direction: column; }
+      .uploaded-image-name { max-width: 100%; }
+      .cost-row {
+        display: block;
+      }
+
+      .cost-value {
+        margin-top: 8px;
+        font-size: 1.7rem;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-nav { gap: 11px; }
+      .top-nav .nav-link { font-size: 0.75rem; }
+      .summary-strip { grid-template-columns: 1fr; }
+      .photo-caption { right: 14px; bottom: 14px; left: 14px; }
+      .photo-caption h3 { font-size: 1.1rem; }
+      .lux-pill { font-size: 0.68rem; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0a1016] text-white antialiased" dir="rtl">
+  <div class="mx-auto max-w-[1280px] px-5 pb-8 pt-2 sm:px-8">
+    <header class="border-b border-white/10">
+      <div class="flex items-center justify-between gap-4 py-3">
+        <a href="#" class="flex items-center gap-3 text-white no-underline" aria-label="نواة للتصميم الداخلي">
+          <span class="brand-mark">ن</span>
+          <span>
+            <span class="block text-base font-semibold">نواة</span>
+            <span class="block text-[10px] text-white/45">مساحات تُشبهك</span>
+          </span>
+        </a>
+
+        <nav class="top-nav" aria-label="التنقل الرئيسي">
+          <button type="button" class="nav-link active" data-target="visual-panel">المحاكاة</button>
+          <button type="button" class="nav-link" data-target="calculator-panel">التكلفة</button>
+          <button type="button" class="nav-link" data-target="project-heading">المشروع</button>
+        </nav>
+        <span class="project-status hidden sm:inline-flex">معاينة تفاعلية</span>
+      </div>
+    </header>
+
+    <section id="project-heading" class="project-heading">
+      <div>
+        <div class="eyebrow">استوديو التصميم والمساحات / 2026</div>
+        <h1 class="project-title">صمّم مساحتك <span class="text-white/40">— تصور التصميم والخامات</span></h1>
+      </div>
+      <div class="project-meta">
+        <span class="meta-chip">مشروع سكني</span>
+        <span class="meta-chip">الرياض، السعودية</span>
+        <span class="meta-chip">آخر تعديل الآن</span>
+      </div>
+    </section>
+
+    <main class="mt-2 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]" dir="ltr">
+      <section id="visual-panel" class="rounded-[24px] border border-white/10 bg-[#101b24]/90 p-5 text-right shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:p-6" dir="rtl">
+        <div class="panel-heading mb-5">
+          <div>
+            <div class="eyebrow">01 / مساحة التصميم</div>
+            <h2 class="mt-1 text-xl font-semibold text-white">معاينة المساحة</h2>
+          </div>
+          <span class="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/55">عرض واقعي</span>
+        </div>
+
+        <div class="mb-2 text-xs text-white/50">أمثلة جاهزة للمعاينة</div>
+        <div class="room-tabs mb-4" role="group" aria-label="اختيار مثال للمعاينة">
+          <button type="button" class="room-tab active" data-room="living">مجلس</button>
+          <button type="button" class="room-tab" data-room="bedroom">غرفة نوم</button>
+          <button type="button" class="room-tab" data-room="kitchen">مطبخ</button>
+        </div>
+
+        <div class="room-visual-wrap">
+          <div id="roomScene" class="room-photo-frame" data-finish="natural">
+            <img id="roomImage" class="room-photo" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="تصميم داخلي لمجلس عصري بألوان دافئة">
+            <span id="photoBadge" class="photo-badge">صورة مرجعية</span>
+            <div class="photo-caption">
+              <div>
+                <h3 id="roomTitle">مجلس عائلي</h3>
+                <p id="roomDescription">إضاءة طبقية وخامات طبيعية هادئة</p>
+              </div>
+              <span class="lux-pill"><span id="currentLux">550 Lux</span> · إضاءة</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-upload-row">
+          <div class="flex flex-wrap items-center gap-3">
+            <button id="uploadRoomImageBtn" type="button" class="upload-room-btn">
+              <span aria-hidden="true">＋</span>
+              <span>أضف صورة مساحتك</span>
+            </button>
+            <span class="upload-hint">غرفة، شقة، واجهة أو مكتب · JPG أو PNG أو WebP · حتى 12 MB</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <span id="uploadedImageName" class="uploaded-image-name" aria-live="polite">اعرض صورة مرجعية أو ارفع صورتك</span>
+            <button id="resetRoomImageBtn" type="button" class="nav-link" hidden>استعادة الصورة</button>
+          </div>
+          <input id="roomImageUpload" type="file" accept="image/jpeg,image/png,image/webp" hidden aria-label="اختر صورة المساحة">
+        </div>
+
+        <div class="preview-tools">
+          <div>
+            <div class="mb-2 text-xs text-white/50">لوحة الخامات</div>
+            <div class="finish-options" role="group" aria-label="اختيار لوحة الخامات">
+              <button type="button" class="finish-option active" data-finish="natural"><span class="finish-swatch natural"></span>طبيعية</button>
+              <button type="button" class="finish-option" data-finish="warm"><span class="finish-swatch warm"></span>دافئة</button>
+              <button type="button" class="finish-option" data-finish="cool"><span class="finish-swatch cool"></span>هادئة</button>
+            </div>
+          </div>
+          <div class="w-full max-w-[300px]">
+            <div class="image-adjustments">
+              <div class="adjustment-control">
+                <div class="adjustment-label">
+                  <label for="intensity">شدة الإضاءة</label>
+                  <span id="intensityValue" class="adjustment-value">550 Lux</span>
+                </div>
+                <input id="intensity" type="range" min="250" max="900" value="550" aria-label="شدة الإضاءة">
+              </div>
+              <div class="adjustment-control">
+                <div class="adjustment-label">
+                  <label for="imageBrightness">سطوع الصورة</label>
+                  <span id="imageBrightnessValue" class="adjustment-value">100%</span>
+                </div>
+                <input id="imageBrightness" type="range" min="65" max="135" value="100" aria-label="سطوع الصورة">
+              </div>
+            </div>
+            <p class="local-edit-note">تغيير السطوع ولوحة الألوان معاينة محلية. توليد التصميم بالذكاء الاصطناعي يستخدم الصورة التي ترفعها فقط.</p>
+          </div>
+        </div>
+
+        <div class="ai-design-controls">
+          <div>
+            <label for="aiDesignPrompt" class="field-label">صف الذوق الذي تريده</label>
+            <textarea id="aiDesignPrompt" class="field-input ai-prompt" maxlength="800">مودرن دافئ، ألوان بيج وخشب طبيعي، وإضاءة غير مباشرة. حافظ على بنية المكان والعناصر الثابتة ومواقع الأبواب والنوافذ.</textarea>
+          </div>
+          <div class="ai-actions">
+            <button id="generateAiDesignBtn" type="button" class="ai-generate-btn">✨ صمّمها بالذكاء الاصطناعي</button>
+            <span class="upload-hint">عند الضغط، تُرسل الصورة إلى OpenAI للتعديل ولا تُحفظ في الموقع</span>
+          </div>
+          <p id="aiDesignStatus" class="ai-status" role="status" aria-live="polite">النتيجة تصور مقترح، وليست مخططًا تنفيذيًا أو ضمانًا لتطابق كل التفاصيل.</p>
+          <div id="aiResultActions" class="ai-result-actions" hidden>
+            <button id="toggleAiResultBtn" type="button" class="ai-view-btn">عرض الصورة الأصلية</button>
+            <a id="downloadAiResultBtn" class="ai-download-btn inline-flex items-center" download="nawa-ai-room-design.png">تنزيل التصميم</a>
+          </div>
+        </div>
+
+        <div class="summary-strip">
+          <div class="summary-item"><span>المساحة الإجمالية</span><strong><span id="summaryArea">150</span> م²</strong></div>
+          <div class="summary-item"><span>مستوى الخامات</span><strong id="summaryFinish">منخفضة</strong></div>
+          <div class="summary-item"><span>عدد وحدات الإضاءة</span><strong><span id="summaryFixtures">36</span> وحدة</strong></div>
+        </div>
+      </section>
+
+      <section id="calculator-panel" class="rounded-[24px] border border-white/10 bg-[#141d27]/90 p-5 text-right shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:p-6" dir="rtl">
+        <div class="mb-6">
+          <div class="eyebrow">02 / تفاصيل المشروع</div>
+          <h2 class="mt-1 text-[1.8rem] font-semibold text-white">التكلفة والتجهيز</h2>
+          <p class="calculator-subtitle">تقدير أولي للتشطيب والإضاءة — عدّل المواصفات لمشاهدته مباشرة</p>
+        </div>
+
+        <div class="space-y-5">
+          <div class="field-box">
+            <label for="areaInput" class="field-label">مساحة المساحة المصممة (متر مربع)</label>
+            <input id="areaInput" type="number" min="10" max="1000" step="10" value="150" class="field-input">
+          </div>
+
+          <div class="field-box">
+            <label for="fixtureType" class="field-label">مستوى الخامات والتشطيب</label>
+            <div class="relative">
+              <select id="fixtureType" class="field-select">
+                <option value="منخفضة" selected>منخفضة</option>
+                <option value="متوسطة">متوسطة</option>
+                <option value="فخمة">فخمة</option>
+              </select>
+              <span class="select-caret">⌄</span>
+            </div>
+          </div>
+
+          <div class="field-box">
+            <label for="fixtureCount" class="field-label">عدد وحدات الإضاءة</label>
+            <div class="range-inline">
+              <input id="fixtureCount" type="range" min="10" max="80" value="36">
+              <span id="fixtureCountValue" class="range-value">36</span>
+            </div>
+          </div>
+
+          <div class="field-box">
+            <label for="energyRate" class="field-label">سعر المتر</label>
+            <div class="energy-row">
+              <input id="energyRate" type="number" min="1000" max="50000" step="250" value="3500" class="field-input short-input">
+              <span class="currency">SYP</span>
+            </div>
+          </div>
+
+          <div class="cost-total-card mt-7 space-y-5">
+            <div class="cost-row">
+              <span class="cost-label">إجمالي تكلفة التركيب</span>
+              <div class="cost-value"><span id="setupValue">15,750,000</span> <span class="cost-unit">SYP</span></div>
+            </div>
+          </div>
+          <div class="border-t border-white/10 pt-4">
+            <div class="cost-row">
+              <span class="cost-label">تكلفة وحدات الإضاءة</span>
+              <div class="cost-value"><span id="fixturesCostValue">64,800</span> <span class="cost-unit">SYP</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <button id="generateReportBtn" type="button" class="primary-btn">
+            <span class="btn-icon">◫</span>
+            <span>إِنشَاء التقرير الكامل</span>
+          </button>
+          <button id="consultExpertBtn" type="button" class="secondary-btn">
+            <span class="btn-icon">◌</span>
+            <span>استشارة خبير</span>
+          </button>
+        </div>
+      </section>
+    </main>
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true">تم إنشاء التقرير بنجاح</div>
+  </div>
+
+  <script>
+    const intensityInput = document.getElementById('intensity');
+    const intensityValue = document.getElementById('intensityValue');
+    const areaInput = document.getElementById('areaInput');
+    const fixtureType = document.getElementById('fixtureType');
+    const fixtureCount = document.getElementById('fixtureCount');
+    const fixtureCountValue = document.getElementById('fixtureCountValue');
+    const energyRate = document.getElementById('energyRate');
+    const setupValue = document.getElementById('setupValue');
+    const fixturesCostValue = document.getElementById('fixturesCostValue');
+    const currentLux = document.getElementById('currentLux');
+    const roomScene = document.getElementById('roomScene');
+    const roomImage = document.getElementById('roomImage');
+    const roomTitle = document.getElementById('roomTitle');
+    const roomDescription = document.getElementById('roomDescription');
+    const photoBadge = document.getElementById('photoBadge');
+    const uploadRoomImageBtn = document.getElementById('uploadRoomImageBtn');
+    const roomImageUpload = document.getElementById('roomImageUpload');
+    const uploadedImageName = document.getElementById('uploadedImageName');
+    const resetRoomImageBtn = document.getElementById('resetRoomImageBtn');
+    const aiDesignPrompt = document.getElementById('aiDesignPrompt');
+    const generateAiDesignBtn = document.getElementById('generateAiDesignBtn');
+    const aiDesignStatus = document.getElementById('aiDesignStatus');
+    const aiResultActions = document.getElementById('aiResultActions');
+    const toggleAiResultBtn = document.getElementById('toggleAiResultBtn');
+    const downloadAiResultBtn = document.getElementById('downloadAiResultBtn');
+    const imageBrightnessInput = document.getElementById('imageBrightness');
+    const imageBrightnessValue = document.getElementById('imageBrightnessValue');
+    const roomButtons = document.querySelectorAll('.room-tab');
+    const finishButtons = document.querySelectorAll('.finish-option');
+    const summaryArea = document.getElementById('summaryArea');
+    const summaryFinish = document.getElementById('summaryFinish');
+    const summaryFixtures = document.getElementById('summaryFixtures');
+    const generateReportBtn = document.getElementById('generateReportBtn');
+    const consultExpertBtn = document.getElementById('consultExpertBtn');
+    const toast = document.getElementById('toast');
+    const navButtons = document.querySelectorAll('.nav-link');
+    const rooms = {
+      living: {
+        title: 'مجلس عائلي',
+        description: 'إضاءة طبقية وخامات طبيعية هادئة',
+        alt: 'تصميم داخلي لمجلس عصري بألوان دافئة',
+        image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85'
+      },
+      bedroom: {
+        title: 'غرفة النوم الرئيسية',
+        description: 'أجواء مريحة وإضاءة جانبية ناعمة',
+        alt: 'غرفة نوم عصرية بتصميم هادئ',
+        image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=85'
+      },
+      kitchen: {
+        title: 'المطبخ',
+        description: 'إضاءة عملية وتشطيبات عصرية',
+        alt: 'مطبخ منزلي بتصميم داخلي عصري',
+        image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85'
+      }
+    };
+    const finishLabels = {
+      natural: 'طبيعية',
+      warm: 'دافئة',
+      cool: 'هادئة'
+    };
+    const uploadedRoomImages = {};
+    const aiGeneratedImages = {};
+    let activeRoom = 'living';
+    let showingGeneratedImage = false;
+
+    function formatter(num) {
+      return Number(num).toLocaleString('en-US');
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timeoutId);
+      showToast.timeoutId = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    function updateRangeProgress(range) {
+      const min = Number(range.min || 0);
+      const max = Number(range.max || 100);
+      const value = Number(range.value);
+      const percent = ((value - min) / (max - min)) * 100;
+      range.style.setProperty('--progress', `${percent}%`);
+    }
+
+    function updateIntensityUI() {
+      const val = Number(intensityInput.value);
+      intensityValue.textContent = `${val} Lux`;
+      if (currentLux) currentLux.textContent = `${val} Lux`;
+      const lightWash = 0.03 + (val - 250) / 650 * 0.2;
+      roomScene.style.setProperty('--light-wash', lightWash.toFixed(2));
+      updateRangeProgress(intensityInput);
+    }
+
+    function updateImageBrightness() {
+      const value = Number(imageBrightnessInput.value);
+      imageBrightnessValue.textContent = `${value}%`;
+      roomScene.style.setProperty('--photo-brightness', (value / 100).toFixed(2));
+      updateRangeProgress(imageBrightnessInput);
+    }
+
+    function displayRoom(roomKey) {
+      const room = rooms[roomKey];
+      const uploaded = uploadedRoomImages[roomKey];
+      activeRoom = roomKey;
+      showingGeneratedImage = false;
+      roomTitle.textContent = uploaded ? 'مساحتك الخاصة' : room.title;
+      roomDescription.textContent = uploaded
+        ? aiGeneratedImages[roomKey] ? 'تصميم مولّد بالذكاء الاصطناعي · اضغط للمقارنة' : 'صورتك الخاصة · جاهزة للتصميم'
+        : room.description;
+      roomImage.alt = uploaded ? `صورتك ${showingGeneratedImage ? 'المصممة' : 'الأصلية'} للمساحة` : room.alt;
+      roomImage.src = uploaded ? uploaded.url : room.image;
+      uploadedImageName.textContent = uploaded ? uploaded.name : 'اعرض صورة مرجعية أو ارفع صورتك';
+      resetRoomImageBtn.hidden = !uploaded;
+      aiResultActions.hidden = !aiGeneratedImages[roomKey];
+      toggleAiResultBtn.textContent = 'عرض التصميم المُولّد';
+      downloadAiResultBtn.href = aiGeneratedImages[roomKey] || '#';
+      photoBadge.textContent = uploaded ? 'صورتك · معاينة خاصة' : 'صورة مرجعية';
+      roomScene.classList.remove('image-unavailable');
+    }
+
+    function setAiDesignStatus(message, state) {
+      aiDesignStatus.textContent = message;
+      if (state) aiDesignStatus.dataset.state = state;
+      else aiDesignStatus.removeAttribute('data-state');
+    }
+
+    function loadImageFile(file) {
+      return new Promise((resolve, reject) => {
+        const imageUrl = URL.createObjectURL(file);
+        const image = new Image();
+        image.onload = () => {
+          URL.revokeObjectURL(imageUrl);
+          resolve(image);
+        };
+        image.onerror = () => {
+          URL.revokeObjectURL(imageUrl);
+          reject(new Error('تعذر فتح ملف الصورة.'));
+        };
+        image.src = imageUrl;
+      });
+    }
+
+    async function prepareImageForAi(file) {
+      const image = await loadImageFile(file);
+      const maxDimension = 1536;
+      const scale = Math.min(1, maxDimension / Math.max(image.naturalWidth, image.naturalHeight));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('تعذر تجهيز الصورة في هذا المتصفح.');
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+      let quality = 0.86;
+      let blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+      while (blob && blob.size > 3 * 1024 * 1024 && quality > 0.5) {
+        quality -= 0.12;
+        blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+      }
+      if (!blob || blob.size > 3 * 1024 * 1024) {
+        throw new Error('تعذر ضغط الصورة للحجم المناسب. اختر صورة أصغر.');
+      }
+      return blob;
+    }
+
+    function readBlobAsBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = String(reader.result);
+          resolve(dataUrl.slice(dataUrl.indexOf(',') + 1));
+        };
+        reader.onerror = () => reject(new Error('تعذر قراءة الصورة.'));
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    async function generateAiDesign() {
+      const roomKey = activeRoom;
+      const uploaded = uploadedRoomImages[roomKey];
+      const style = aiDesignPrompt.value.trim();
+      if (!uploaded) {
+        setAiDesignStatus('ارفع صورة للمساحة التي تريد تصميمها أولًا.', 'error');
+        return;
+      }
+      if (!style) {
+        setAiDesignStatus('اكتب وصف التصميم الذي تريده أولًا.', 'error');
+        aiDesignPrompt.focus();
+        return;
+      }
+      if (window.location.protocol === 'file:') {
+        setAiDesignStatus('التصميم بالذكاء الاصطناعي يحتاج نشر المشروع على Vercel أو تشغيل Vercel CLI محليًا.', 'error');
+        return;
+      }
+
+      generateAiDesignBtn.disabled = true;
+      setAiDesignStatus('نجهّز الصورة ثم نرسلها لخدمة التصميم الآمنة…');
+      try {
+        const imageBlob = await prepareImageForAi(uploaded.file);
+        const image = await readBlobAsBase64(imageBlob);
+        setAiDesignStatus('يجري إنشاء تصور التصميم؛ قد يستغرق ذلك بعض الوقت…');
+        const response = await fetch('/api/edit-room', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image, mimeType: imageBlob.type, style })
+        });
+        let result;
+        try {
+          result = await response.json();
+        } catch (error) {
+          throw new Error('تعذر قراءة رد خدمة التصميم. حاول مرة أخرى.');
+        }
+        if (!response.ok) {
+          throw new Error(result.error || 'تعذر تعديل الصورة.');
+        }
+        if (typeof result.image !== 'string' || result.mimeType !== 'image/png') {
+          throw new Error('وصل رد غير صالح من خدمة التصميم.');
+        }
+
+        aiGeneratedImages[roomKey] = `data:${result.mimeType};base64,${result.image}`;
+        if (activeRoom === roomKey) {
+          showingGeneratedImage = true;
+          roomImage.src = aiGeneratedImages[roomKey];
+          roomImage.alt = `التصميم المُولّد لمساحتك`;
+          roomDescription.textContent = 'تصميم مولّد بالذكاء الاصطناعي · اضغط للمقارنة';
+          photoBadge.textContent = 'تصميم بالذكاء الاصطناعي';
+          aiResultActions.hidden = false;
+          toggleAiResultBtn.textContent = 'عرض الصورة الأصلية';
+          downloadAiResultBtn.href = aiGeneratedImages[roomKey];
+        }
+        setAiDesignStatus('اكتمل التصميم. يمكنك مقارنة النتيجة بالأصل أو تنزيلها.', 'success');
+      } catch (error) {
+        setAiDesignStatus(error.message || 'تعذر إنشاء التصميم. حاول مرة أخرى.', 'error');
+      } finally {
+        generateAiDesignBtn.disabled = false;
+      }
+    }
+
+    function updateCost() {
+      const area = Number(areaInput.value);
+      const count = Number(fixtureCount.value);
+      const rate = Number(energyRate.value);
+      const valid = Number.isFinite(area) && area >= 10 && area <= 1000
+        && Number.isFinite(rate) && rate >= 1000 && rate <= 50000;
+
+      areaInput.setAttribute('aria-invalid', String(!Number.isFinite(area) || area < 10 || area > 1000));
+      energyRate.setAttribute('aria-invalid', String(!Number.isFinite(rate) || rate < 1000 || rate > 50000));
+      if (!valid) return;
+
+      const qualityMultiplier = fixtureType.value === 'منخفضة' ? 0.85 : fixtureType.value === 'متوسطة' ? 1.15 : 1.55;
+      const fixturesCost = Math.round(count * 1800 * qualityMultiplier);
+      const setup = Math.round(area * rate * qualityMultiplier + fixturesCost);
+
+      setupValue.textContent = formatter(setup);
+      fixturesCostValue.textContent = formatter(fixturesCost);
+      summaryArea.textContent = formatter(area);
+      summaryFinish.textContent = fixtureType.value;
+      summaryFixtures.textContent = formatter(count);
+    }
+
+    function buildReport() {
+      const area = Number(areaInput.value);
+      const type = fixtureType.value;
+      const count = Number(fixtureCount.value);
+      const intensity = Number(intensityInput.value);
+      const rate = Number(energyRate.value);
+      if (areaInput.getAttribute('aria-invalid') === 'true' || energyRate.getAttribute('aria-invalid') === 'true') {
+        showToast('تحقق من مساحة المشروع وسعر المتر أولًا');
+        return;
+      }
+      const setup = Number(setupValue.textContent.replace(/,/g, '')) || 0;
+      const fixturesCost = Number(fixturesCostValue.textContent.replace(/,/g, '')) || 0;
+      const currentRoom = rooms[document.querySelector('.room-tab.active').dataset.room];
+
+      const content = [
+        'تقرير تصميم مساحة وإضاءة — نواة',
+        '---------------------',
+        `نوع المساحة: ${uploadedRoomImages[document.querySelector('.room-tab.active').dataset.room] ? 'مساحة خاصة' : currentRoom.title}`,
+        `لوحة الألوان: ${finishLabels[roomScene.dataset.finish]}`,
+        `مساحة المشروع: ${area} متر مربع`,
+        `مستوى الخامات: ${type}`,
+        `عدد وحدات الإضاءة: ${count}`,
+        `شدة الإضاءة: ${intensity} Lux`,
+        `سعر المتر: ${rate} SYP`,
+        `إجمالي تكلفة التركيب: ${formatter(setup)} SYP`,
+        `تكلفة وحدات الإضاءة: ${formatter(fixturesCost)} SYP`
+      ].join('\n');
+
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'nawa-interior-design-report.txt';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(url);
+      showToast('تم إنشاء التقرير بنجاح');
+    }
+
+    function openExpertConsultation() {
+      if (areaInput.getAttribute('aria-invalid') === 'true' || energyRate.getAttribute('aria-invalid') === 'true') {
+        showToast('تحقق من مساحة المشروع وسعر المتر أولًا');
+        return;
+      }
+      const area = Number(areaInput.value);
+      const type = fixtureType.value;
+      const intensity = Number(intensityInput.value);
+      const currentRoom = rooms[document.querySelector('.room-tab.active').dataset.room];
+      const currentSpace = uploadedRoomImages[document.querySelector('.room-tab.active').dataset.room] ? 'مساحتي الخاصة' : currentRoom.title;
+      const message = `مرحبًا، أريد استشارة حول تصميم ${currentSpace}. المساحة ${area} م²، مستوى الخامات ${type}، سعر المتر ${Number(energyRate.value)} SYP، وشدة الإضاءة ${intensity} Lux.`;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    navButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = document.getElementById(button.dataset.target);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          navButtons.forEach((navButton) => navButton.classList.toggle('active', navButton === button));
+        }
+      });
+    });
+
+    roomButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!rooms[button.dataset.room]) return;
+        roomButtons.forEach((roomButton) => roomButton.classList.toggle('active', roomButton === button));
+        displayRoom(button.dataset.room);
+      });
+    });
+
+    finishButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        finishButtons.forEach((finishButton) => finishButton.classList.toggle('active', finishButton === button));
+        roomScene.dataset.finish = button.dataset.finish;
+      });
+    });
+
+    roomImage.addEventListener('error', () => {
+      roomScene.classList.add('image-unavailable');
+      showToast('تعذر تحميل الصورة؛ تحقق من اتصال الإنترنت أو اختر صورة أخرى');
+    });
+
+    uploadRoomImageBtn.addEventListener('click', () => {
+      roomImageUpload.click();
+    });
+
+    roomImageUpload.addEventListener('change', () => {
+      const file = roomImageUpload.files[0];
+      if (!file) return;
+
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        showToast('اختر صورة بصيغة JPG أو PNG أو WebP');
+        roomImageUpload.value = '';
+        return;
+      }
+
+      if (file.size > 12 * 1024 * 1024) {
+        showToast('حجم الصورة يتجاوز الحد المسموح (12 MB)');
+        roomImageUpload.value = '';
+        return;
+      }
+
+      const previousUpload = uploadedRoomImages[activeRoom];
+      if (previousUpload) URL.revokeObjectURL(previousUpload.url);
+      uploadedRoomImages[activeRoom] = {
+        name: file.name,
+        url: URL.createObjectURL(file),
+        file
+      };
+      delete aiGeneratedImages[activeRoom];
+      displayRoom(activeRoom);
+      roomImageUpload.value = '';
+      showToast('تم تحميل الصورة للمعاينة على هذا الجهاز');
+    });
+
+    resetRoomImageBtn.addEventListener('click', () => {
+      const uploaded = uploadedRoomImages[activeRoom];
+      if (!uploaded) return;
+      URL.revokeObjectURL(uploaded.url);
+      delete uploadedRoomImages[activeRoom];
+      delete aiGeneratedImages[activeRoom];
+      displayRoom(activeRoom);
+      setAiDesignStatus('', '');
+      showToast('تمت استعادة الصورة الأصلية');
+    });
+
+    generateAiDesignBtn.addEventListener('click', generateAiDesign);
+
+    toggleAiResultBtn.addEventListener('click', () => {
+      const generated = aiGeneratedImages[activeRoom];
+      const uploaded = uploadedRoomImages[activeRoom];
+      if (!generated || !uploaded) return;
+      showingGeneratedImage = !showingGeneratedImage;
+      roomImage.src = showingGeneratedImage ? generated : uploaded.url;
+      roomImage.alt = `الصورة ${showingGeneratedImage ? 'المصممة' : 'الأصلية'} لـ ${rooms[activeRoom].title}`;
+      photoBadge.textContent = showingGeneratedImage ? 'تصميم بالذكاء الاصطناعي' : 'صورتك الأصلية';
+      toggleAiResultBtn.textContent = showingGeneratedImage ? 'عرض الصورة الأصلية' : 'عرض التصميم المُولّد';
+    });
+
+    imageBrightnessInput.addEventListener('input', updateImageBrightness);
+    generateReportBtn.addEventListener('click', buildReport);
+    consultExpertBtn.addEventListener('click', openExpertConsultation);
+
+    intensityInput.addEventListener('input', () => {
+      updateIntensityUI();
+    });
+
+    areaInput.addEventListener('input', updateCost);
+    fixtureType.addEventListener('change', updateCost);
+    fixtureCount.addEventListener('input', () => {
+      fixtureCountValue.textContent = fixtureCount.value;
+      updateRangeProgress(fixtureCount);
+      updateCost();
+    });
+    energyRate.addEventListener('input', updateCost);
+
+    updateRangeProgress(intensityInput);
+    updateRangeProgress(fixtureCount);
+    updateIntensityUI();
+    updateImageBrightness();
+    updateCost();
+    window.addEventListener('beforeunload', () => {
+      Object.keys(uploadedRoomImages).forEach((roomKey) => {
+        URL.revokeObjectURL(uploadedRoomImages[roomKey].url);
+      });
+    });
+  </script>
+</body>
+</html>
